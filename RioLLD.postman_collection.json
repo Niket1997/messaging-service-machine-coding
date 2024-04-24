@@ -1,0 +1,158 @@
+{
+	"info": {
+		"_postman_id": "d864a0ff-8fe7-400b-a1ed-d031808dc382",
+		"name": "RioLLD",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "4882083"
+	},
+	"item": [
+		{
+			"name": "Create User One",
+			"protocolProfileBehavior": {
+				"disabledSystemHeaders": {}
+			},
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"id\": \"harsh565\",\n    \"name\": \"Hasrh\"\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:8084/users/v1",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8084",
+					"path": [
+						"users",
+						"v1"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Create User Two",
+			"protocolProfileBehavior": {
+				"disabledSystemHeaders": {}
+			},
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"id\": \"niket1957\",\n    \"name\": \"Aniket\"\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:8084/users/v1",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8084",
+					"path": [
+						"users",
+						"v1"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Create Message",
+			"protocolProfileBehavior": {
+				"disabledSystemHeaders": {}
+			},
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"from\": \"niket1957\",\n    \"to\": \"harsh565\",\n    \"text\": \"hello Niket\"\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:8084/messages/v1",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8084",
+					"path": [
+						"messages",
+						"v1"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Get Unread Messages",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:8084/messages/v1/unread/harsh565",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8084",
+					"path": [
+						"messages",
+						"v1",
+						"unread",
+						"harsh565"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Mark message as read",
+			"request": {
+				"method": "PUT",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"isRead\": true\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:8084/messages/v1/4512e156-857c-4fdd-823c-dc26902da89f",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8084",
+					"path": [
+						"messages",
+						"v1",
+						"4512e156-857c-4fdd-823c-dc26902da89f"
+					]
+				}
+			},
+			"response": []
+		}
+	]
+}
