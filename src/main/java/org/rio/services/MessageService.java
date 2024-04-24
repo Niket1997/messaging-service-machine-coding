@@ -4,6 +4,8 @@ import org.rio.entities.Message;
 import org.rio.entities.User;
 import org.rio.excetions.messages.MessageNotFoundException;
 import org.rio.interfaces.IMessageService;
+import org.rio.interfaces.IUserService;
+import org.rio.interfaces.repositories.IMessageRepository;
 import org.rio.records.messages.CreateMessageRequest;
 import org.rio.records.messages.UpdateMessageRequest;
 import org.springframework.stereotype.Service;
@@ -15,12 +17,12 @@ import java.util.Map;
 
 @Service
 public class MessageService implements IMessageService {
-    Map<String, Message> messages;
-    UserService userService;
+    IUserService userService;
+    IMessageRepository messageRepository;
 
-    public MessageService(UserService userService) {
+    public MessageService(IUserService userService, IMessageRepository messageRepository) {
         this.userService = userService;
-        messages = new HashMap<>();
+        this.messageRepository = messageRepository;
     }
 
     @Override
@@ -31,35 +33,26 @@ public class MessageService implements IMessageService {
 
         // create message
         Message message = new Message(from, to, request.text());
-        messages.put(message.getId(), message);
-        return message;
+        return messageRepository.createMessage(message);
     }
 
     @Override
     public Message updateMessage(String messageId, UpdateMessageRequest request) {
-        if (!messages.containsKey(messageId)) throw new MessageNotFoundException("message not found");
-        Message message = messages.get(messageId);
-        message.setRead(true);
-        return message;
+        Message message = messageRepository.getMessage(messageId);
+        message.setRead(request.isRead());
+        return messageRepository.updateMessage(message);
     }
 
     @Override
     public Message getMessage(String id) {
-        if (!messages.containsKey(id)) throw new MessageNotFoundException("message not found");
-        return messages.get(id);
+        return messageRepository.getMessage(id);
     }
 
     @Override
     public List<Message> getUnreadMessages(String userId) {
-        User user = userService.getUser(userId);
-        List<Message> unreadMessageList = new ArrayList<>();
-
-        for (Message message : messages.values()) {
-            if (message.getTo().equals(user) && !message.isRead()) {
-                unreadMessageList.add(message);
-            }
-        }
-        return unreadMessageList;
+        // check if user exists
+        userService.getUser(userId);
+        return messageRepository.getUnreadMessages(userId);
     }
 
     @Override

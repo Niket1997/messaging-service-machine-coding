@@ -15,20 +15,28 @@ Most important requirement - A running code which has all the basic functional
 requirements
 
 ## Objects
-1. User
-2. Message
-3. ChatServer
+1. User, UserService, UserController, UserRepository
+2. Message, MessageService, MessageController, MessageRepository
 
-
+### User 
 User:
 1. id - user provided
 2. name
 3. created_at (metadata)
 
 UserController:
-1. HashMap<String, User> users
+1. UserService
 2. CRUD over users
 
+UserService:
+1. UserRepository
+2. CRUD over user
+
+UserRepository:
+1. Map<String, User> users
+2. CRUD over users
+
+### Message
 Message:
 1. UUID id
 2. User from
@@ -38,15 +46,16 @@ Message:
 5. boolean isRead -> update by client
 
 MessageController:
+1. MessageService
+2. CRUD over messages
+3. getUnreadMessagesAPI
+
+MessageService:
+1. MessageRepository
+2. CRUD APIs
+3. getUnreadMessagesAPI
+
+MessageRepository:
 1. Map<String, Message> messages
 2. CRUD over messages
-3. UserController uc
-4. markRead
-
-// not needed
-MessageView:
-1. List<Message> sent;
-2. List<Received> received
-
-ChatServer:
-1. UserController uc
+3. getUnreadMessagesAPI
